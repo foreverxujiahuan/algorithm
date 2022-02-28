@@ -1,44 +1,28 @@
+from heapq import heapify, heappushpop
 from typing import List
 
 
 class Solution:
     def minimumDifference(self, nums: List[int]) -> int:
-        length = len(nums)
-        if length % 2 == 0:
-            cnt = length // 6
-            nums = sorted(nums)
-            nums = nums[cnt:-cnt]
-            temp_length = len(nums)
-            first = []
-            second = []
-            for i in range(temp_length):
-                if i % 2 == 0:
-                    first.append(nums[i])
-                else:
-                    second.append(nums[i])
-            return sum(first) - sum(second)
-        else:
-            cnt = length // 6
-            nums = sorted(nums)
-            nums1 = nums[cnt+1:-cnt]
-            temp_length1 = len(nums1)
-            first1 = []
-            second1 = []
-            for i in range(temp_length1):
-                if i % 2 == 0:
-                    first1.append(nums1[i])
-                else:
-                    second1.append(nums1[i])
-            nums2 = nums[cnt:-cnt+1]
-            temp_length2 = len(nums2)
-            first2 = []
-            second2 = []
-            for i in range(temp_length2):
-                if i % 2 == 0:
-                    first2.append(nums2[i])
-                else:
-                    second2.append(nums2[i])
-            return min(sum(first1) - sum(second2), sum(first2) - sum(second2))
+        m = len(nums)
+        n = m // 3
+
+        min_pq = nums[m - n:]
+        heapify(min_pq)
+        suf_max = [0] * (m - n + 1)  # 后缀最大和
+        suf_max[-1] = s = sum(min_pq)
+        for i in range(m - n - 1, n - 1, -1):
+            s += nums[i] - heappushpop(min_pq, nums[i])
+            suf_max[i] = s
+
+        max_pq = [-v for v in nums[:n]]  # 所有元素取反当最大堆
+        heapify(max_pq)
+        pre_min = -sum(max_pq)  # 前缀最小和
+        ans = pre_min - suf_max[n]
+        for i in range(n, m - n):
+            pre_min += nums[i] + heappushpop(max_pq, -nums[i])
+            ans = min(ans, pre_min - suf_max[i + 1])
+        return ans
 
 
 if __name__ == '__main__':
