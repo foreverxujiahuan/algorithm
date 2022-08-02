@@ -7,7 +7,8 @@ class Solution:
             if len(path) == k:
                 res.append(path[:])
                 return
-            for i in range(start, n - (k - len(path)) + 2):
+            length = n - (k - len(path)) + 2
+            for i in range(start, length):
                 path.append(i)
                 backtracking(i + 1)
                 path.pop()
@@ -18,3 +19,9 @@ class Solution:
         return res
 
 
+if __name__ == '__main__':
+    n = 4
+    k = 2
+    solution = Solution()
+    res = solution.combine(n, k)
+    print(res)
