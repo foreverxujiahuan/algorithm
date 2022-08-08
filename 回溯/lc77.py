@@ -5,7 +5,7 @@ class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         def backtracking(start):
             if len(path) == k:
-                res.append(path[:])
+                ans.append(path[:])
                 return
             length = n - (k - len(path)) + 2
             for i in range(start, length):
@@ -14,9 +14,9 @@ class Solution:
                 path.pop()
 
         path = []
-        res = []
+        ans = []
         backtracking(1)
-        return res
+        return ans
 
 
 if __name__ == '__main__':
