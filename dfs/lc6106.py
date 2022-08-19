@@ -16,7 +16,7 @@ class Solution:
         def dfs(x: int) -> None:
             nonlocal size
             visited[x] = True
-            size += 1
+            size += g[x]
             for y in g[x]:
                 if not visited[y]:
                     dfs(y)
