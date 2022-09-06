@@ -26,7 +26,7 @@ def get_aug_data(entities, template, mentions):
 
 if __name__ == '__main__':
     entities = ('连续实体', '连续实体')
-    template = "<连续实体>和<连续实体>有什么区别"
+    template = "请问<连续实体>和<连续实体>有什么区别"
     mentions = ('150v', '80v')
     ans = get_aug_data(entities, template, mentions)
     print(ans)
