@@ -22,6 +22,11 @@ class Solution:
             return False
         return self.compare(left.left, right.right) and self.compare(left.right, right.left)
 
+    def isSymmetric2(self, root, TreeNode) -> bool:
+        pass
+
+
+
 
 
 
