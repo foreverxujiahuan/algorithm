@@ -1,6 +1,6 @@
 class Solution:
     def smallestValue(self, n: int) -> int:
-        
+
         while n > self.f(n):
             n = self.f(n)
         return n

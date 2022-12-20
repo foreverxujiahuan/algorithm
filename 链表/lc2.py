@@ -6,34 +6,33 @@ class ListNode:
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        if l1 is None:
+        if not l1:
             return l2
-        if l2 is None:
+        if not l2:
             return l1
-        new_node = ListNode(-1)
-        l3 = new_node
+        dummy = ListNode(-1)
+        l3 = dummy
         carry = 0
-        while l1 is not None or l2 is not None:
-            if l1 is not None:
+        while l1 or l2:
+            if l1:
                 carry += l1.val
                 l1 = l1.next
-            if l2 is not None:
+            if l2:
                 carry += l2.val
                 l2 = l2.next
             l3.next = ListNode(carry % 10)
-            carry = int(carry/10)
+            carry = carry // 10
             l3 = l3.next
-        if carry == 1:
+        if carry:
             l3.next = ListNode(1)
-        return new_node.next
+        return dummy.next
 
-
-l1 = ListNode(2)
-l1.next = ListNode(4)
-l1.next.next = ListNode(3)
-l2 = ListNode(5)
-l2.next = ListNode(6)
-l2.next.next = ListNode(4)
+l1 = ListNode(9)
+l1.next = ListNode(9)
+l1.next.next = ListNode(9)
+l2 = ListNode(9)
+l2.next = ListNode(9)
+# l2.next.next = ListNode(9)
 
 solution = Solution()
 cur_node = solution.addTwoNumbers(l1, l2)
