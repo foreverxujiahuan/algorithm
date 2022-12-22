@@ -18,22 +18,18 @@ class Solution:
             '8': 'tuv',
             '9': 'wxyz'
         }
-        q = []
-        for c in digits:
-            if not q:
-                for t in d.get(c, ""):
-                    q.append(t)
-            else:
-                cur_q = []
-                for s1 in q:
-                    for s2 in d.get(c, ""):
-                        cur_q.append(s1 + s2)
-                q = cur_q
+        q = ['']
+        for digit in digits:
+            cur_q = []
+            for c in d[digit]:
+                for t in q:
+                    cur_q.append(t + c)
+            q = cur_q
         return q
 
 
 if __name__ == '__main__':
-    digits = "29"
+    digits = ""
     solution = Solution()
     res = solution.letterCombinations(digits)
     print(res)

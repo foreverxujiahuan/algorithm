@@ -17,17 +17,17 @@ class Solution:
             '8': 'tuv',
             '9': 'wxyz'
         }
-        res = []
+        ans = []
         cur = ''
-        length = len(digits)
-        def dfs(num, cur, res):
-            if num == length:
-                res.append(cur)
+        i = 0
+        def dfs(i, cur, ans):
+            if i == len(digits):
+                ans.append(cur)
                 return
-            for letter in d[digits[num]]:
-                dfs(num + 1, cur + letter, res)
-        dfs(0, cur, res)
-        return res
+            for c in d[digits[i]]:
+                dfs(i+1, cur+c, ans)
+        dfs(i, cur, ans)
+        return ans
 
 
 if __name__ == '__main__':
