@@ -1,20 +1,16 @@
+from collections import defaultdict
 from typing import List
 
 
-def groupAnagrams(strs: List[str]) -> List[List[str]]:
-    hash_table = dict()
-    for s in strs:
-        t = ''.join(sorted(s))
-        if t in hash_table.keys():
-            hash_table[t].append(s)
-        else:
-            hash_table[t] = [s]
-    res = []
-    for k,v in hash_table.items():
-        res.append(v)
-    return res
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        d = defaultdict(list)
+        for s in strs:
+            d["".join(sorted(s))].append(s)
+        return list(d.values())
 
 
 strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-res = groupAnagrams(strs)
+soltuion = Solution()
+res = soltuion.groupAnagrams(strs)
 print(res)

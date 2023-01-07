@@ -1,23 +1,40 @@
+from itertools import permutations
 from typing import List
 
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        res = []
-        self.dfs(n, 0, 0, res, "")
-        return res
+        q = [""]
+        for _ in range(n * 2):
+            cur_q = []
+            for c in q:
+                cur_q.append(c + "(")
+            for c in q:
+                cur_q.append(c + ")")
+            q = cur_q
+        ans = [s for s in q if self.valid(s)]
+        return ans
 
-    def dfs(self, n, left, right, res, cur):
-        if right == n:
-            res.append(cur)
-            return
-        if left < n:
-            self.dfs(n, left+1, right, res, cur + '(')
-        if left > right:
-            self.dfs(n, left, right+1, res, cur+')')
+    def valid(self, s):
+        stack = []
+        for c in s:
+            if c == '(':
+                stack.append(c)
+            else:
+                if stack:
+                    stack.pop()
+                else:
+                    return False
+        return len(stack) == 0
 
 
 if __name__ == '__main__':
     solution = Solution()
-    res = solution.generateParenthesis(3)
+    res = solution.generateParenthesis(5)
     print(res)
+    # n = 3
+    # candidates = permutations("()" * n)
+    # print(len(list(candidates)))
+    # candidates = set(["".join(t) for t in candidates])
+    # print(len(candidates))
+    # print(list(candidates))
