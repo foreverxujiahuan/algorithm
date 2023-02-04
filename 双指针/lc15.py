@@ -21,6 +21,7 @@ class Solution:
                     r -= 1
         return ans
 
+
 if __name__ == '__main__':
     nums = [0,1,1]
     solution = Solution()
