@@ -29,8 +29,8 @@ if __name__ == '__main__':
     solution = Solution()
     # nums = [12, 9]
     # k = 1
-    nums = [8, 1, 2]
-    k = 2
+    nums = [10, 8, 4]
+    k = 1
     # nums = [98, 54, 6, 34, 66, 63, 52, 39, 62, 46, 75, 28, 65, 18, 37, 18, 97, 13, 80, 33, 69, 91, 78, 19, 40]
     # k = 2
     res = solution.maximumOr(nums, k)
