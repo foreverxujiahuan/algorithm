@@ -1,5 +1,6 @@
 from typing import List
 from itertools import accumulate
+from sklearn.metrics import classification_report
 
 
 class Solution:
