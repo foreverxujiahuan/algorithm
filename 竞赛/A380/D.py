@@ -1,50 +1,31 @@
 from typing import List
 from bisect import bisect_left
-import re
+
 
 class Solution:
-    def build_lps(self, pattern):
-        m = len(pattern)
-        lps = [0] * m
-        length = 0
-        i = 1
-
-        while i < m:
-            if pattern[i] == pattern[length]:
-                length += 1
-                lps[i] = length
-                i += 1
-            else:
-                if length != 0:
-                    length = lps[length - 1]
-                else:
-                    lps[i] = 0
-                    i += 1
-
-        return lps
-
     def kmp_search(self, text, pattern):
-        n = len(text)
         m = len(pattern)
-        lps = self.build_lps(pattern)
-        i = 0
-        j = 0
-        ans = []
-        while i < n:
-            if pattern[j] == text[i]:
-                i += 1
-                j += 1
+        pi = [0] * m
+        c = 0
+        for i in range(1, m):
+            v = pattern[i]
+            while c and pattern[c] != v:
+                c = pi[c - 1]
+            if pattern[c] == v:
+                c += 1
+            pi[i] = c
 
-            if j == m:
-                ans.append(i - j)
-                j = lps[j - 1]
-            elif i < n and pattern[j] != text[i]:
-                if j != 0:
-                    j = lps[j - 1]
-                else:
-                    i += 1
-        return ans
-
+        res = []
+        c = 0
+        for i, v in enumerate(text):
+            while c and pattern[c] != v:
+                c = pi[c - 1]
+            if pattern[c] == v:
+                c += 1
+            if c == len(pattern):
+                res.append(i - m + 1)
+                c = pi[c - 1]
+        return res
 
     def beautifulIndices(self, s: str, a: str, b: str, k: int) -> List[int]:
         a_index = self.kmp_search(s, a)
