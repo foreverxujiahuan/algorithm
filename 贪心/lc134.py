@@ -3,29 +3,30 @@ from typing import List
 
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        for i in range(len(gas)):
-            if self.flag(gas, cost, i):
-                return i
+        start = 0
+        length = len(gas)
+        while start < length:
+            step = 0
+            cur_gas = 0
+            cur_cost = 0
+            while step < length:
+                cur_index = (start + step) % length
+                cur_gas += gas[cur_index]
+                cur_cost += cost[cur_index]
+                if cur_gas < cur_cost:
+                    break
+                step += 1
+                if step == length:
+                    return start
+            start += step + 1
         return -1
-
-    def flag(self, gas, cost, index):
-        cur_gas = 0
-        for i in range(index, len(gas)):
-            cur_gas += gas[i]
-            cur_gas -= cost[i]
-            if cur_gas < 0:
-                return False
-        for i in range(index):
-            cur_gas += gas[i]
-            cur_gas -= cost[i]
-            if cur_gas < 0:
-                return False
-        return True
 
 
 if __name__ == '__main__':
-    s = Solution()
-    gas = [2, 3, 4]
-    cost = [3, 4, 3]
-    res = s.canCompleteCircuit(gas, cost)
+    solution = Solution()
+    gas = [1,2,3,4,5]
+    cost = [3,4,5,1,2]
+    res = solution.canCompleteCircuit(gas, cost)
     print(res)
+
+
