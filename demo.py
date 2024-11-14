@@ -1,7 +1,11 @@
-from math import ceil
 
 
-l = 8
+cur_set = set()
+with open("platform.txt", 'r') as f:
+    lines = f.readlines()
 
-t = ceil(7 / 2)
-print(t)
+    for line in lines:
+        line = line.strip()
+        if line in cur_set:
+            print(line)
+        cur_set.add(line)
